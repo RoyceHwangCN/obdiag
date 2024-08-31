@@ -93,9 +93,6 @@ DEFAULT_INNER_CONFIG = {
     'gather': {
         'scenes_base_path': '~/.obdiag/gather/tasks',
     },
-    'display': {
-        'scenes_base_path': '~/.obdiag/display/tasks',
-    },
     'rca': {
         'result_path': './rca/',
     },
