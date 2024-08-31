@@ -1,0 +1,9 @@
+info_en: "[plan]"
+info_cn: "[查看sql的执行计划]"
+command: obdiag display scene run --scene=observer.plan
+task:
+  - version: "[2.0.0.0, 4.0.0.0]"
+    steps:
+      - type: sql
+        sql: "show variables like 'version_comment';"
+        global: true

@@ -3,10 +3,10 @@ name: build package
 on:
   pull_request:
     branches:
-      - master
+      - display_hj
   push:
     branches:
-      - master
+      - display_hj
 
 env:
   ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: true

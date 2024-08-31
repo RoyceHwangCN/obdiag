@@ -718,6 +718,38 @@ class ObdiagGatherTableDumpHandler(ObdiagOriginCommand):
     def _do_command(self, obdiag):
         return obdiag.gather_function('gather_tabledump', self.opts)
 
+class ObdiagDisplaySceneListCommand(ObdiagOriginCommand):
+
+    def __init__(self):
+        super(ObdiagDisplaySceneListCommand, self).__init__('list', 'display scene list')
+
+    def init(self, cmd, args):
+        super(ObdiagDisplaySceneListCommand, self).init(cmd, args)
+        return self
+
+    def _do_command(self, obdiag):
+        return obdiag.display_scenes_list(self.opts)
+
+
+class ObdiagDisplaySceneRunCommand(ObdiagOriginCommand):
+
+    def __init__(self):
+        super(ObdiagDisplaySceneRunCommand, self).__init__('run', 'display scene run')
+        self.parser.add_option('--scene', type='string', help="Specify the scene to be display")
+        self.parser.add_option('--from', type='string', help="specify the start of the time range. format: 'yyyy-mm-dd hh:mm:ss'")
+        self.parser.add_option('--to', type='string', help="specify the end of the time range. format: 'yyyy-mm-dd hh:mm:ss'")
+        self.parser.add_option('--since', type='string', help="Specify time range that from 'n' [d]ays, 'n' [h]ours or 'n' [m]inutes. before to now. format: <n> <m|h|d>. example: 1h.", default='30m')
+        self.parser.add_option('--env', type='string', help='env, eg: "{env1=xxx, env2=xxx}"')
+        self.parser.add_option('-c', type='string', help='obdiag custom config', default=os.path.expanduser('~/.obdiag/config.yml'))
+        self.parser.add_option('--config', action="append", type="string", help='config options Format: --config key=value')
+
+    def init(self, cmd, args):
+        super(ObdiagDisplaySceneRunCommand, self).init(cmd, args)
+        return self
+
+    def _do_command(self, obdiag):
+        return obdiag.display_function('display_scenes_run', self.opts)
+
 
 class ObdiagAnalyzeLogCommand(ObdiagOriginCommand):
 
@@ -1082,6 +1114,18 @@ class ObdiagGatherSceneCommand(MajorCommand):
         self.register_command(ObdiagGatherSceneListCommand())
         self.register_command(ObdiagGatherSceneRunCommand())
 
+class ObdiagDisplayCommand(MajorCommand):
+
+    def __init__(self):
+        super(ObdiagDisplayCommand, self).__init__('display', 'display oceanbase info')
+        self.register_command(ObdiagDisplaySceneCommand())
+
+class ObdiagDisplaySceneCommand(MajorCommand):
+
+    def __init__(self):
+        super(ObdiagDisplaySceneCommand, self).__init__('scene', 'Gather scene diagnostic info')
+        self.register_command(ObdiagDisplaySceneListCommand())
+        self.register_command(ObdiagDisplaySceneRunCommand())
 
 class ObdiagAnalyzeCommand(MajorCommand):
 
@@ -1110,6 +1154,7 @@ class MainCommand(MajorCommand):
         super(MainCommand, self).__init__('obdiag', '')
         self.register_command(DisplayTraceCommand())
         self.register_command(ObdiagGatherCommand())
+        self.register_command(ObdiagDisplayCommand())
         self.register_command(ObdiagAnalyzeCommand())
         self.register_command(ObdiagCheckCommand())
         self.register_command(ObdiagRCACommand())

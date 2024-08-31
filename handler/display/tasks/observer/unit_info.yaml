@@ -1,0 +1,9 @@
+info_en: "[unit info]"
+info_cn: "[unit 信息展示]"
+command: obdiag display scene run --scene=observer.unit
+task:
+  - version: "[2.0.0.0, *]"
+    steps:
+      - type: 
+        global: false
+        sysstat: ""

@@ -1,0 +1,9 @@
+info_en: "[topsql info]"
+info_cn: "[查看topsql]"
+command: obdiag display scene run --scene=observer.topsql
+task:
+  - version: "[2.0.0.0, 4.0.0.0]"
+    steps:
+      - type: sql
+        sql: "show variables like 'version_comment';"
+        global: true

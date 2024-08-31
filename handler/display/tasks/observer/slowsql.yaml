@@ -1,0 +1,9 @@
+info_en: "[slowsql]"
+info_cn: "[查看慢sql]"
+command: obdiag display scene run --scene=observer.slowsql
+task:
+  - version: "[2.0.0.0, 4.0.0.0]"
+    steps:
+      - type: sql
+        sql: "show variables like 'version_comment';"
+        global: true
