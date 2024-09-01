@@ -1,0 +1,11 @@
+.idea/
+.vscode/
+venv/
+.venv/
+*.pyc
+*site-packages/
+dependencies/python2/site-packages
+dependencies/python2/libs
+dependencies/python3/site-packages
+dependencies/python3/libs
+gather_pack_*

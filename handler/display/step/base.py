@@ -11,7 +11,7 @@
 # See the Mulan PSL v2 for more details.
 
 """
-@time: 2024/08/16
+@time: 2024/01/05
 @file: base.py
 @desc:
 """
@@ -54,10 +54,7 @@ class Base(SafeStdio):
             if (self.node_number > 1) and self.step.get("global") and (self.step.get("global") is True):
                 self.stdio.verbose("step sets the value of the global is true and it is processing the {0} node, skipping display".format(self.node_number))
             else:
-                if self.step["type"] == "ssh":
-                    handler = SshHandler(self.context, self.step, self.node, self.report_path, self.task_variable_dict)
-                    handler.execute()
-                elif self.step["type"] == "sql":
+                if self.step["type"] == "sql":
                     handler = StepSQLHandler(self.context, self.step, self.cluster, self.report_path, self.task_variable_dict)
                     handler.execute()
                 else:
