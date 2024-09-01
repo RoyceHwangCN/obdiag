@@ -53,7 +53,9 @@ class StepSQLHandler(SafeStdio):
             columns, data = self.ob_connector.execute_sql_return_columns_and_data(sql)
             if data is None or len(data) == 0:
                 self.stdio.verbose("excute sql: {0},  result is None".format(sql))
-            self.stdio.print(sql, columns, data)
+            self.stdio.print("sql: {0}", sql)
+            print(columns)
+            print(data)
         except Exception as e:
             self.stdio.error("StepSQLHandler execute Exception: {0}".format(e).strip())
 
