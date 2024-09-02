@@ -20,7 +20,8 @@ from stdio import SafeStdio
 from common.ob_connector import OBConnector
 from tabulate import tabulate
 from common.tool import StringUtils
-import pandas as pd
+from prettytable import PrettyTable
+
 
 class StepSQLHandler(SafeStdio):
     def __init__(self, context, step, ob_cluster, report_path, task_variable_dict):
@@ -53,9 +54,10 @@ class StepSQLHandler(SafeStdio):
             columns, data = self.ob_connector.execute_sql_return_columns_and_data(sql)
             if data is None or len(data) == 0:
                 self.stdio.verbose("excute sql: {0},  result is None".format(sql))
-            result = pd.DataFrame(data, columns=columns)
-            result.style.set_properties(**{'text-align': 'left'})
-            self.stdio.print(result)
+            table = PrettyTable(columns)
+            for row in data:
+                table.add_row(row)
+            self.stdio.print(table)
         except Exception as e:
             self.stdio.error("StepSQLHandler execute Exception: {0}".format(e).strip())
 
